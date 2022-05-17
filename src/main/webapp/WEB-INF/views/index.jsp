@@ -10,7 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <title>Oddam w dobre ręce</title>
 
-    <link rel="stylesheet" href="<c:url value="/css/style.css"/>"/>
+    <link rel="stylesheet" href="<c:url value="css/style.css"/>"/>
 </head>
 <body>
 <%@include file="fragments/header.jsp"%>
@@ -84,30 +84,34 @@
             Możesz sprawdzić czym się zajmują.</p>
 
         <ul class="help--slides-items">
-            <li>
-                <div class="col">
-                    <div class="title">Fundacja "Dbam o Zdrowie"</div>
-                    <div class="subtitle">Cel i misja: Pomoc dzieciom z ubogich rodzin.</div>
-                </div>
-
-                <div class="col">
-                    <div class="title">Fundacja "A kogo"</div>
-                    <div class="subtitle">Cel i misja: Pomoc wybudzaniu dzieci ze śpiączki.</div>
-                </div>
-            </li>
-
-            <li>
-                <div class="col">
-                    <div class="title">Fundacja “Dla dzieci"</div>
-                    <div class="subtitle">Cel i misja: Pomoc osobom znajdującym się w trudnej sytuacji życiowej.</div>
-                </div>
-                <div class="col">
-                    <div class="title">Fundacja “Bez domu”</div>
-                    <div class="subtitle">Cel i misja: Pomoc dla osób nie posiadających miejsca zamieszkania</div>
-                </div>
-
-            </li>
-
+            <c:forEach items="${institutions}" var="institution" varStatus="status">
+                <c:if test="${status.count % 2 != 0 && !status.last}">
+                    <li>
+                        <div class="col">
+                            <div class="title">Fundacja "${institution.name}"</div>
+                            <div class="subtitle">${institution.description}</div>
+                        </div>
+                </c:if>
+                <c:if test="${status.count % 2 == 0}">
+                        <div class="col">
+                            <div class="title">Fundacja "${institution.name}"</div>
+                            <div class="subtitle">${institution.description}</div>
+                        </div>
+                   </li>
+                </c:if>
+                <c:if test="${status.count % 2 != 0 && status.last}">
+                    <li>
+                        <div class="col">
+                            <div class="title">Fundacja "${institution.name}"</div>
+                            <div class="subtitle">${institution.description}</div>
+                        </div>
+                        <div class="col">
+                            <div class="title"/>
+                            <div class="subtitle"/>
+                        </div>
+                    </li>
+                </c:if>
+            </c:forEach>
         </ul>
     </div>
 
