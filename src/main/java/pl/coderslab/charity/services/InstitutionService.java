@@ -5,6 +5,7 @@ import pl.coderslab.charity.entity.Institution;
 import pl.coderslab.charity.repository.InstitutionRepository;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -31,6 +32,10 @@ public class InstitutionService {
         institutionRepository.deleteById(id);
     }
 
+    public List<Institution> findAll(){
+        return institutionRepository.findAll();
+    }
+
     public Institution findById(Long id){
         Optional<Institution> institutionOpt = institutionRepository.findById(id);
         return institutionRepository.findByOpt(institutionOpt);
@@ -39,4 +44,6 @@ public class InstitutionService {
     public Institution findByName(String name){
         return institutionRepository.findByName(name);
     }
+
+
 }
