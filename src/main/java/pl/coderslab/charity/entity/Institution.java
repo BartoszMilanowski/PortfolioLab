@@ -8,11 +8,11 @@ public class Institution {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
-    String name;
+    private String name;
 
-    String description;
+    private String description;
 
     public Long getId() {
         return id;
