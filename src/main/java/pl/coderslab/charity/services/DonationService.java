@@ -54,4 +54,16 @@ public class DonationService {
     public List<Donation> findByCategory(Category category){
         return donationRepository.findByCategory(category);
     }
+
+    public int quantitySum(){
+        int sum = 0;
+        List<Donation> donations = findAll();
+
+        for (Donation d : donations){
+            int quantity = d.getQuantity();
+            sum = sum + quantity;
+        }
+
+        return sum;
+    }
 }

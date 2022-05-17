@@ -9,6 +9,8 @@ insert into charity_donation.institutions (name, description) values ('Dla dziec
 insert into charity_donation.institutions (name, description) values ('Dbam o zdrowie', 'Cel i misja: Pomoc dzieciom z ubogich rodzin');
 
 insert into charity_donation.donations (quantity, institution_id, street, city, zip_code, pick_up_date, pick_up_time, pick_up_comment) values (2, 1, 'Główna 5', 'Warszawa', '01-001', CURRENT_DATE, CURRENT_TIME, 'istotny komentarz');
+insert into charity_donation.donations (quantity, institution_id, street, city, zip_code, pick_up_date, pick_up_time, pick_up_comment) values (1, 2, 'Główna 6', 'Warszawa', '01-001', CURRENT_DATE, CURRENT_TIME, 'istotny komentarz');
 
 insert into charity_donation.donations_categories (donation_id, category_id) values (1, 1);
 insert into charity_donation.donations_categories (donation_id, category_id) values (1, 2);
+insert into charity_donation.donations_categories (donation_id, category_id) values (2, 3);
