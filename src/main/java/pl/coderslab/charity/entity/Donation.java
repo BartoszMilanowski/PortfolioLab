@@ -1,5 +1,7 @@
 package pl.coderslab.charity.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -24,12 +26,15 @@ public class Donation {
     @JoinColumn(name = "institution_id")
     private Institution institution;
 
+    private String phoneNumber;
+
     private String street;
 
     private String city;
 
     private String zipCode;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate pickUpDate;
 
     private LocalTime pickUpTime;
@@ -66,6 +71,14 @@ public class Donation {
 
     public void setInstitution(Institution institution) {
         this.institution = institution;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getStreet() {

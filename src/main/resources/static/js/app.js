@@ -125,8 +125,15 @@ document.addEventListener("DOMContentLoaded", function() {
       this.$next.forEach(btn => {
         btn.addEventListener("click", e => {
           e.preventDefault();
+          // this.getData();
           this.currentStep++;
           this.updateForm();
+          // if (this.checkForm()) {
+          //   this.currentStep++;
+          //   this.updateForm();
+          // } else {
+          //   this.events()
+          // }
         });
       });
 
@@ -152,20 +159,85 @@ document.addEventListener("DOMContentLoaded", function() {
 
       // TODO: Validation
 
-      this.slides.forEach(slide => {
-        slide.classList.remove("active");
+        this.slides.forEach(slide => {
+          slide.classList.remove("active");
 
-        if (slide.dataset.step == this.currentStep) {
-          slide.classList.add("active");
-        }
-      });
+          if (slide.dataset.step == this.currentStep) {
+            slide.classList.add("active");
+          }
+        });
 
-      this.$stepInstructions[0].parentElement.parentElement.hidden = this.currentStep >= 5;
-      this.$step.parentElement.hidden = this.currentStep >= 5;
+
+        this.$stepInstructions[0].parentElement.parentElement.hidden = this.currentStep >= 5;
+        this.$step.parentElement.hidden = this.currentStep >= 5;
 
       // TODO: get data from inputs and show them in summary
     }
 
+    getData(){
+      let checked = [];
+      let quantity;
+      let foundation;
+      if (this.currentStep === 1){
+        checked = document.querySelectorAll("input[id='checkbox']:checked");
+      } else if (this.currentStep === 2){
+        quantity = document.querySelector("#quantity").value;
+      } else if (this.currentStep === 3){
+        const foundationId = document.querySelector("input[id='radio']:checked");
+        foundation = foundationId.value;
+
+      }
+    }
+
+    checkForm(){
+      if (this.currentStep === 1){
+        const checkboxes = document.querySelectorAll("#checkbox");
+        let checked = [];
+        for (let i = 0; i < checkboxes.length; i++){
+          if (checkboxes[i].checked){
+            checked.push(checkboxes[i]);
+          }
+        }
+        if (checked.length === 0){
+          const div = document.querySelector("div[data-step='1']");
+          const p = document.createElement("p");
+          p.innerText = "Zaznacz rodzaj darów!";
+          p.style.color = "red";
+          div.appendChild(p);
+          return false;
+        } else {
+          return true;
+        }
+      }
+      if (this.currentStep === 2){
+        const quantity = document.querySelector("#quantity").value;
+        if (quantity < 1 || isNaN(quantity)){
+          const div = document.querySelector("div[data-step='2']");
+          const p = document.createElement("p");
+          p.innerText = "Podaj poprawną liczbę worków!";
+          p.style.color = "red";
+          div.appendChild(p);
+          return false;
+        } else {
+          return true;
+        }
+      }
+      if (this.currentStep === 3){
+        const checkRadio = document.querySelector('input[id="radio"]:checked');
+        if (checkRadio === null){
+          const div = document.querySelector("div[data-step='3']");
+          const p = document.createElement("p");
+          p.innerText = "Wybierz fundację, której chcesz przekazać dary!";
+          p.style.color = "red";
+          div.appendChild(p);
+          return false;
+        } else {
+          return true;
+        }
+      } if (this.currentStep === 4){
+
+      }
+    }
   }
   const form = document.querySelector(".form--steps");
   if (form !== null) {
