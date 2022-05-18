@@ -10,7 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <title>Oddam w dobre ręce</title>
 
-    <link rel="stylesheet" href="<c:url value="css/style.css"/>"/>
+    <link rel="stylesheet" href="<c:url value="/css/style.css"/>"/>
 </head>
 <body>
 <header class="header--main-page">
