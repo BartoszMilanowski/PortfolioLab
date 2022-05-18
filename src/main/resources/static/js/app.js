@@ -176,7 +176,8 @@ document.addEventListener("DOMContentLoaded", function() {
       for(let i = 0; i < errors.length; i++){
         errors[i].remove();
       }
-      if (this.currentStep === 1){
+      switch (this.currentStep){
+        case 1:
         const checked = document.querySelectorAll("input[id='checkbox']:checked");
         if (checked.length === 0){
           const div = document.querySelector("div[data-step='1']");
@@ -188,7 +189,7 @@ document.addEventListener("DOMContentLoaded", function() {
         } else {
           return true;
         }
-      } else if (this.currentStep === 2){
+        case 2:
        const quantity = document.querySelector("input[id='quantity']").value;
        if (quantity < 1 || !Number.isInteger(parseInt(quantity))){
          const div = document.querySelector("div[data-step='2']");
@@ -201,7 +202,7 @@ document.addEventListener("DOMContentLoaded", function() {
        } else {
          return true;
        }
-      } else if (this.currentStep === 3){
+        case 3:
         const institution = document.querySelectorAll("input[id='radio']:checked");
         if (institution.length === 0){
           const div = document.querySelector("div[data-step='3']");
@@ -214,8 +215,43 @@ document.addEventListener("DOMContentLoaded", function() {
         } else {
           return true;
         }
-      } else if (this.currentStep === 4){
-        return true;
+        case 4:
+        let errors = [];
+        const street = document.querySelector("input[id='street']").value;
+        if (street === ""){
+          errors.push("adres odbioru");
+        }
+        const city = document.querySelector("input[id='city']").value;
+        if (city === ""){
+          errors.push("miasto odbioru");
+        }
+        const zipCode = document.querySelector("input[id='zipCode']").value;
+        if (zipCode === ""){
+          errors.push("kod pocztowy");
+        }
+        const phone = document.querySelector("input[id='phone']").value;
+        if (phone === ""){
+          errors.push("numer kontaktowy");
+        }
+        const date = document.querySelector("input[id='date']").value;
+        if (date === ""){
+          errors.push("preferowaną datę odbioru");
+        }
+        const time = document.querySelector("input[id='time']").value;
+        if (time === ""){
+          errors.push("preferowaną godzinę odbioru");
+        }
+        if (errors.length !== 0){
+          const div = document.querySelector("div[data-step='4']");
+          let p = document.createElement("h3");
+          p.style.color = "red";
+          p.setAttribute("id", "error");
+          p.innerHTML = "<br/>Uzupełnij: " + errors.join(", ") + "!";
+          div.appendChild(p);
+          return false;
+        } else {
+          return true;
+        }
       }
     }
   }
