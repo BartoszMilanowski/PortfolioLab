@@ -13,121 +13,121 @@
     <link rel="stylesheet" href="<c:url value="/css/style.css"/>"/>
 </head>
 <body>
-<header class="header--main-page">
-<%@include file="fragments/header.jsp"%>
-<div class="slogan container container--90">
-    <div class="slogan--item">
-        <h1>
-            Zacznij pomagać!<br/>
-            Oddaj niechciane rzeczy w zaufane ręce
-        </h1>
-    </div>
-</div>
-</header>
-
-<section class="stats">
-    <div class="container container--85">
-        <div class="stats--item">
-            <em>${quantity}</em>
-
-            <h3>Oddanych worków</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius est beatae, quod accusamus illum
-                tempora!</p>
-        </div>
-
-        <div class="stats--item">
-            <em>${donationsNumber}</em>
-            <h3>Przekazanych darów</h3>
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam magnam, sint nihil cupiditate quas
-                quam.</p>
-        </div>
-
-    </div>
-</section>
-
-<section class="steps" id="o-co-chodzi">
-    <h2>Wystarczą 4 proste kroki</h2>
-
-    <div class="steps--container">
-        <div class="steps--item">
-            <span class="icon icon--hands"></span>
-            <h3>Wybierz rzeczy</h3>
-            <p>ubrania, zabawki, sprzęt i inne</p>
-        </div>
-        <div class="steps--item">
-            <span class="icon icon--arrow"></span>
-            <h3>Spakuj je</h3>
-            <p>skorzystaj z worków na śmieci</p>
-        </div>
-        <div class="steps--item">
-            <span class="icon icon--glasses"></span>
-            <h3>Zdecyduj komu chcesz pomóc</h3>
-            <p>wybierz zaufane miejsce</p>
-        </div>
-        <div class="steps--item">
-            <span class="icon icon--courier"></span>
-            <h3>Zamów kuriera</h3>
-            <p>kurier przyjedzie w dogodnym terminie</p>
+    <header class="header--main-page">
+    <%@include file="fragments/header.jsp"%>
+    <div class="slogan container container--90">
+        <div class="slogan--item">
+            <h1>
+                Zacznij pomagać!<br/>
+                Oddaj niechciane rzeczy w zaufane ręce
+            </h1>
         </div>
     </div>
+    </header>
 
-    <a href="#" class="btn btn--large">Załóż konto</a>
-</section>
+    <section class="stats">
+        <div class="container container--85">
+            <div class="stats--item">
+                <em>${quantity}</em>
 
-<section class="about-us" id="o-nas">
-    <div class="about-us--text">
-        <h2>O nas</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas vitae animi rem pariatur incidunt libero
-            optio esse quisquam illo omnis.</p>
-        <img src="<c:url value="images/signature.svg"/>" class="about-us--text-signature" alt="Signature"/>
-    </div>
-    <div class="about-us--image"><img src="<c:url value="images/about-us.jpg"/>" alt="People in circle"/>
-    </div>
-</section>
+                <h3>Oddanych worków</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius est beatae, quod accusamus illum
+                    tempora!</p>
+            </div>
 
-<section class="help" id="fundacje-i-organizacje">
-    <h2>Komu pomagamy?</h2>
+            <div class="stats--item">
+                <em>${donationsNumber}</em>
+                <h3>Przekazanych darów</h3>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam magnam, sint nihil cupiditate quas
+                    quam.</p>
+            </div>
 
-    <!-- SLIDE 1 -->
-    <div class="help--slides active" data-id="1">
-        <p>W naszej bazie znajdziesz listę zweryfikowanych Fundacji, z którymi współpracujemy.
-            Możesz sprawdzić czym się zajmują.</p>
+        </div>
+    </section>
 
-        <ul class="help--slides-items">
-            <c:forEach items="${institutions}" var="institution" varStatus="status">
-                <c:if test="${status.count % 2 != 0 && !status.last}">
-                    <li>
-                        <div class="col">
-                            <div class="title">Fundacja "${institution.name}"</div>
-                            <div class="subtitle">${institution.description}</div>
-                        </div>
-                </c:if>
-                <c:if test="${status.count % 2 == 0}">
-                        <div class="col">
-                            <div class="title">Fundacja "${institution.name}"</div>
-                            <div class="subtitle">${institution.description}</div>
-                        </div>
-                   </li>
-                </c:if>
-                <c:if test="${status.count % 2 != 0 && status.last}">
-                    <li>
-                        <div class="col">
-                            <div class="title">Fundacja "${institution.name}"</div>
-                            <div class="subtitle">${institution.description}</div>
-                        </div>
-                        <div class="col">
-                            <div class="title"/>
-                            <div class="subtitle"/>
-                        </div>
-                    </li>
-                </c:if>
-            </c:forEach>
-        </ul>
-    </div>
+    <section class="steps" id="o-co-chodzi">
+        <h2>Wystarczą 4 proste kroki</h2>
 
-</section>
-<%@ include file="fragments/footer.jsp"%>
+        <div class="steps--container">
+            <div class="steps--item">
+                <span class="icon icon--hands"></span>
+                <h3>Wybierz rzeczy</h3>
+                <p>ubrania, zabawki, sprzęt i inne</p>
+            </div>
+            <div class="steps--item">
+                <span class="icon icon--arrow"></span>
+                <h3>Spakuj je</h3>
+                <p>skorzystaj z worków na śmieci</p>
+            </div>
+            <div class="steps--item">
+                <span class="icon icon--glasses"></span>
+                <h3>Zdecyduj komu chcesz pomóc</h3>
+                <p>wybierz zaufane miejsce</p>
+            </div>
+            <div class="steps--item">
+                <span class="icon icon--courier"></span>
+                <h3>Zamów kuriera</h3>
+                <p>kurier przyjedzie w dogodnym terminie</p>
+            </div>
+        </div>
 
+        <a href="#" class="btn btn--large">Załóż konto</a>
+    </section>
+
+    <section class="about-us" id="o-nas">
+        <div class="about-us--text">
+            <h2>O nas</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas vitae animi rem pariatur incidunt libero
+                optio esse quisquam illo omnis.</p>
+            <img src="<c:url value="images/signature.svg"/>" class="about-us--text-signature" alt="Signature"/>
+        </div>
+        <div class="about-us--image"><img src="<c:url value="images/about-us.jpg"/>" alt="People in circle"/>
+        </div>
+    </section>
+
+    <section class="help" id="fundacje-i-organizacje">
+        <h2>Komu pomagamy?</h2>
+
+        <!-- SLIDE 1 -->
+        <div class="help--slides active" data-id="1">
+            <p>W naszej bazie znajdziesz listę zweryfikowanych Fundacji, z którymi współpracujemy.
+                Możesz sprawdzić czym się zajmują.</p>
+
+            <ul class="help--slides-items">
+                <c:forEach items="${institutions}" var="institution" varStatus="status">
+                    <c:if test="${status.count % 2 != 0 && !status.last}">
+                        <li>
+                            <div class="col">
+                                <div class="title">Fundacja "${institution.name}"</div>
+                                <div class="subtitle">${institution.description}</div>
+                            </div>
+                    </c:if>
+                    <c:if test="${status.count % 2 == 0}">
+                            <div class="col">
+                                <div class="title">Fundacja "${institution.name}"</div>
+                                <div class="subtitle">${institution.description}</div>
+                            </div>
+                       </li>
+                    </c:if>
+                    <c:if test="${status.count % 2 != 0 && status.last}">
+                        <li>
+                            <div class="col">
+                                <div class="title">Fundacja "${institution.name}"</div>
+                                <div class="subtitle">${institution.description}</div>
+                            </div>
+                            <div class="col">
+                                <div class="title"/>
+                                <div class="subtitle"/>
+                            </div>
+                        </li>
+                    </c:if>
+                </c:forEach>
+            </ul>
+        </div>
+    </section>
+    <footer>
+        <%@ include file="fragments/footer.jsp"%>
+    </footer>
 <script src="<c:url value="js/app.js"/>"></script>
 </body>
 </html>

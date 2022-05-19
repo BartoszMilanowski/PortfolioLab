@@ -2,6 +2,7 @@ package pl.coderslab.charity.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.coderslab.charity.entity.Institution;
 import pl.coderslab.charity.services.DonationService;
@@ -32,5 +33,11 @@ public class HomeController {
         List<Institution> institutionList = institutionService.findAll();
         model.addAttribute("institutions", institutionList);
         return "index";
+    }
+
+    @GetMapping("zarejestruj-sie")
+    public String registerForm(Model model){
+
+        return "register";
     }
 }
