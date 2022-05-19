@@ -130,7 +130,7 @@ document.addEventListener("DOMContentLoaded", function() {
             this.updateForm();
           }
           if(this.currentStep === 5){
-            //metoda pobierania danych
+            this.getData();
           }
         });
       });
@@ -253,6 +253,67 @@ document.addEventListener("DOMContentLoaded", function() {
           return true;
         }
       }
+    }
+
+    getData(){
+      const categoriesIds = document.querySelectorAll("input[id='checkbox']:checked");
+      const categories = [];
+      for (let i = 0; i < categoriesIds.length; i++){
+        categories.push(categoriesIds[i].parentElement.querySelector(".description").textContent);
+      }
+      const quantity = document.querySelector("#quantity").value;
+      const institutionId = document.querySelector("input[id='radio']:checked");
+      const institution = institutionId.parentElement.querySelector(".title").textContent;
+      const street = document.querySelector("#street").value;
+      const city = document.querySelector("#city").value;
+      const zipCode = document.querySelector("#zipCode").value;
+      const phone = document.querySelector("#phone").value;
+      const date = document.querySelector("#date").value;
+      const time = document.querySelector("#time").value;
+      const comment = document.querySelector("#comment").value;
+
+      const donationLi = document.querySelector("#donation");
+      const donationText = document.createElement("span");
+      donationText.classList.add("summary--text");
+      donationText.innerHTML = quantity + " worki: " + categories.join(", ") + ".";
+      donationLi.appendChild(donationText);
+
+      const forLi = document.querySelector("#for");
+      const forText = document.createElement("span");
+      forText.classList.add("summary--text");
+      forText.innerHTML = "Dla: " + institution + ".";
+      forLi.appendChild(forText);
+
+      const placeUl = document.querySelector("#pickUpPlace");
+      const streetLi = document.createElement("li");
+      const cityLi = document.createElement("li");
+      const zipCodeLi = document.createElement("li");
+      const phoneLi = document.createElement("li");
+      streetLi.innerHTML = street;
+      cityLi.innerHTML = city;
+      zipCodeLi.innerHTML = zipCode;
+      phoneLi.innerHTML = phone;
+      placeUl.appendChild(streetLi);
+      placeUl.appendChild(cityLi);
+      placeUl.appendChild(zipCodeLi);
+      placeUl.appendChild(phoneLi);
+
+      const dateUl = document.querySelector("#pickUpDate");
+      const dateLi = document.createElement("li");
+      const timeLi = document.createElement("li");
+      const commentLi = document.createElement("li");
+
+      dateLi.innerHTML = date;
+      timeLi.innerHTML = time;
+
+      if (comment === ""){
+        commentLi.innerHTML = "Brak uwag"
+      } else {
+        commentLi.innerHTML = comment;
+      }
+      dateUl.appendChild(dateLi);
+      dateUl.appendChild(timeLi);
+      dateUl.appendChild(commentLi);
     }
   }
   const form = document.querySelector(".form--steps");
