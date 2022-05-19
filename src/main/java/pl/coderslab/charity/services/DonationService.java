@@ -66,4 +66,12 @@ public class DonationService {
 
         return sum;
     }
+
+    @Transactional
+    public void addCategoryToDonation(Category category, Donation donation){
+        List<Category> categories = donation.getCategories();
+        categories.add(category);
+        donation.setCategories(categories);
+        update(donation);
+    }
 }

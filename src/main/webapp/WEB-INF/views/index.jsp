@@ -10,10 +10,20 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <title>Oddam w dobre ręce</title>
 
-    <link rel="stylesheet" href="<c:url value="css/style.css"/>"/>
+    <link rel="stylesheet" href="<c:url value="/css/style.css"/>"/>
 </head>
 <body>
+<header class="header--main-page">
 <%@include file="fragments/header.jsp"%>
+<div class="slogan container container--90">
+    <div class="slogan--item">
+        <h1>
+            Zacznij pomagać!<br/>
+            Oddaj niechciane rzeczy w zaufane ręce
+        </h1>
+    </div>
+</div>
+</header>
 
 <section class="stats">
     <div class="container container--85">
@@ -35,7 +45,7 @@
     </div>
 </section>
 
-<section class="steps">
+<section class="steps" id="o-co-chodzi">
     <h2>Wystarczą 4 proste kroki</h2>
 
     <div class="steps--container">
@@ -64,7 +74,7 @@
     <a href="#" class="btn btn--large">Załóż konto</a>
 </section>
 
-<section class="about-us">
+<section class="about-us" id="o-nas">
     <div class="about-us--text">
         <h2>O nas</h2>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas vitae animi rem pariatur incidunt libero
@@ -75,7 +85,7 @@
     </div>
 </section>
 
-<section class="help">
+<section class="help" id="fundacje-i-organizacje">
     <h2>Komu pomagamy?</h2>
 
     <!-- SLIDE 1 -->

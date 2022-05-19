@@ -125,8 +125,13 @@ document.addEventListener("DOMContentLoaded", function() {
       this.$next.forEach(btn => {
         btn.addEventListener("click", e => {
           e.preventDefault();
-          this.currentStep++;
-          this.updateForm();
+          if (this.checkFrom()){
+            this.currentStep++;
+            this.updateForm();
+          }
+          if(this.currentStep === 5){
+            this.getData();
+          }
         });
       });
 
@@ -166,6 +171,125 @@ document.addEventListener("DOMContentLoaded", function() {
       // TODO: get data from inputs and show them in summary
     }
 
+    checkFrom(){
+      const errors = document.querySelectorAll("#error");
+      for(let i = 0; i < errors.length; i++){
+        errors[i].remove();
+      }
+      switch (this.currentStep){
+        case 1:
+        const checked = document.querySelectorAll("input[id='checkbox']:checked");
+        if (checked.length === 0){
+          const div = document.querySelector("div[data-step='1']");
+          let p = document.createElement("h3");
+          p.style.color = "red";
+          p.innerHTML = "<br/>Zaznacz rodzaj przekazywanych darów!";
+          div.appendChild(p);
+          return false;
+        } else {
+          return true;
+        }
+        case 2:
+       const quantity = document.querySelector("input[id='quantity']").value;
+       if (quantity < 1 || !Number.isInteger(parseInt(quantity))){
+         const div = document.querySelector("div[data-step='2']");
+         let p = document.createElement("h3");
+         p.style.color = "red";
+         p.setAttribute("id", "error");
+         p.innerHTML = "<br/>Podaj liczbę przekazywanych worków!";
+         div.appendChild(p);
+         return false;
+       } else {
+         return true;
+       }
+        case 3:
+        const institution = document.querySelectorAll("input[id='radio']:checked");
+        if (institution.length === 0){
+          const div = document.querySelector("div[data-step='3']");
+          let p = document.createElement("h3");
+          p.style.color = "red";
+          p.setAttribute("id", "error");
+          p.innerHTML = "<br/>Wybierz fundację, której chcesz przekazać dary!";
+          div.appendChild(p);
+          return false;
+        } else {
+          return true;
+        }
+        case 4:
+        let errors = [];
+        const street = document.querySelector("input[id='street']").value;
+        if (street === ""){
+          errors.push("adres odbioru");
+        }
+        const city = document.querySelector("input[id='city']").value;
+        if (city === ""){
+          errors.push("miasto odbioru");
+        }
+        const zipCode = document.querySelector("input[id='zipCode']").value;
+        if (zipCode === ""){
+          errors.push("kod pocztowy");
+        }
+        const phone = document.querySelector("input[id='phone']").value;
+        if (phone === ""){
+          errors.push("numer kontaktowy");
+        }
+        const date = document.querySelector("input[id='date']").value;
+        if (date === ""){
+          errors.push("preferowaną datę odbioru");
+        }
+        const time = document.querySelector("input[id='time']").value;
+        if (time === ""){
+          errors.push("preferowaną godzinę odbioru");
+        }
+        if (errors.length !== 0){
+          const div = document.querySelector("div[data-step='4']");
+          let p = document.createElement("h3");
+          p.style.color = "red";
+          p.setAttribute("id", "error");
+          p.innerHTML = "<br/>Uzupełnij: " + errors.join(", ") + "!";
+          div.appendChild(p);
+          return false;
+        } else {
+          return true;
+        }
+      }
+    }
+
+    getData(){
+      const categoriesIds = document.querySelectorAll("input[id='checkbox']:checked");
+      const categories = [];
+      for (let i = 0; i < categoriesIds.length; i++){
+        categories.push(categoriesIds[i].parentElement.querySelector(".description").textContent);
+      }
+      const quantity = document.querySelector("#quantity").value;
+      const institutionId = document.querySelector("input[id='radio']:checked");
+      const institution = institutionId.parentElement.querySelector(".title").textContent;
+      const street = document.querySelector("#street").value;
+      const city = document.querySelector("#city").value;
+      const zipCode = document.querySelector("#zipCode").value;
+      const phone = document.querySelector("#phone").value;
+      const date = document.querySelector("#date").value;
+      const time = document.querySelector("#time").value;
+      const comment = document.querySelector("#comment").value;
+
+      const donationText = document.querySelector("#donation");
+      donationText.innerHTML = "Worki: " + quantity + ", dary: " + categories.join(", ") + ".";
+
+      const forText = document.querySelector("#for");
+      forText.innerHTML = "Dla: " + institution + ".";
+
+      const pickUpPlace = document.querySelector("#pickUpPlace");
+      pickUpPlace.innerHTML = "<li>" + street + "</li><li>"+ city +"</li><li>"+ zipCode +"</li><li>"+ phone +"</li>";
+
+
+      const pickUpDate = document.querySelector("#pickUpDate");
+      if (comment === ""){
+        pickUpDate.innerHTML = "<li>" + date + "</li><li>"+ time +"</li><li>Brak uwag</li>";
+      } else {
+        pickUpDate.innerHTML = "<li>" + date + "</li><li>"+ time +"</li><li>"+ comment +"</li>";
+      }
+
+    }
   }
   const form = document.querySelector(".form--steps");
   if (form !== null) {
