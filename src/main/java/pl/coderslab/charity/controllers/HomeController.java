@@ -58,10 +58,10 @@ public class HomeController {
     public String register(HttpServletRequest request){
 
         User user = new User();
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-        user.setEmail(email);
-        user.setPassword(passwordEncoder.encode(password));
+        user.setFirstName(request.getParameter("firstName"));
+        user.setLastName(request.getParameter("lastName"));
+        user.setEmail(request.getParameter("email"));
+        user.setPassword(passwordEncoder.encode(request.getParameter("password")));
         userService.save(user);
 
         return "redirect:/login";
