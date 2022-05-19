@@ -272,48 +272,23 @@ document.addEventListener("DOMContentLoaded", function() {
       const time = document.querySelector("#time").value;
       const comment = document.querySelector("#comment").value;
 
-      const donationLi = document.querySelector("#donation");
-      const donationText = document.createElement("span");
-      donationText.classList.add("summary--text");
-      donationText.innerHTML = quantity + " worki: " + categories.join(", ") + ".";
-      donationLi.appendChild(donationText);
+      const donationText = document.querySelector("#donation");
+      donationText.innerHTML = "Worki: " + quantity + ", dary: " + categories.join(", ") + ".";
 
-      const forLi = document.querySelector("#for");
-      const forText = document.createElement("span");
-      forText.classList.add("summary--text");
+      const forText = document.querySelector("#for");
       forText.innerHTML = "Dla: " + institution + ".";
-      forLi.appendChild(forText);
 
-      const placeUl = document.querySelector("#pickUpPlace");
-      const streetLi = document.createElement("li");
-      const cityLi = document.createElement("li");
-      const zipCodeLi = document.createElement("li");
-      const phoneLi = document.createElement("li");
-      streetLi.innerHTML = street;
-      cityLi.innerHTML = city;
-      zipCodeLi.innerHTML = zipCode;
-      phoneLi.innerHTML = phone;
-      placeUl.appendChild(streetLi);
-      placeUl.appendChild(cityLi);
-      placeUl.appendChild(zipCodeLi);
-      placeUl.appendChild(phoneLi);
+      const pickUpPlace = document.querySelector("#pickUpPlace");
+      pickUpPlace.innerHTML = "<li>" + street + "</li><li>"+ city +"</li><li>"+ zipCode +"</li><li>"+ phone +"</li>";
 
-      const dateUl = document.querySelector("#pickUpDate");
-      const dateLi = document.createElement("li");
-      const timeLi = document.createElement("li");
-      const commentLi = document.createElement("li");
 
-      dateLi.innerHTML = date;
-      timeLi.innerHTML = time;
-
+      const pickUpDate = document.querySelector("#pickUpDate");
       if (comment === ""){
-        commentLi.innerHTML = "Brak uwag"
+        pickUpDate.innerHTML = "<li>" + date + "</li><li>"+ time +"</li><li>Brak uwag</li>";
       } else {
-        commentLi.innerHTML = comment;
+        pickUpDate.innerHTML = "<li>" + date + "</li><li>"+ time +"</li><li>"+ comment +"</li>";
       }
-      dateUl.appendChild(dateLi);
-      dateUl.appendChild(timeLi);
-      dateUl.appendChild(commentLi);
+
     }
   }
   const form = document.querySelector(".form--steps");

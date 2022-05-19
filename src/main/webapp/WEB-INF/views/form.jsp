@@ -190,12 +190,14 @@
               <div class="form-section">
                 <h4>Oddajesz:</h4>
                 <ul>
-                  <li id="donation">
+                  <li>
                     <span class="icon icon-bag"></span>
+                    <span class="summary--text" id="donation"></span>
                   </li>
 
-                  <li id="for">
+                  <li>
                     <span class="icon icon-hand"></span>
+                    <span class="summary--text" id="for"></span>
                   </li>
                 </ul>
               </div>
