@@ -23,18 +23,23 @@
       <form:form method="post" id="registerForm">
         <div class="form-group">
           <input type="text" name="firstName" placeholder="Imię" id="firstName"/>
+          <p style="color: red"></p>
         </div>
         <div class="form-group">
           <input type="text" name="lastName" placeholder="Nazwisko" id="lastName"/>
+          <p style="color: red"></p>
         </div>
         <div class="form-group">
           <input type="email" name="email" placeholder="Email" id="email"/>
+          <p style="color: red"></p>
         </div>
         <div class="form-group">
           <input type="password" name="password" placeholder="Hasło" id="password" />
+          <p style="color: red"></p>
         </div>
         <div class="form-group">
           <input type="password" name="password2" placeholder="Powtórz hasło" id="password2"/>
+          <p style="color: red"></p>
         </div>
 
         <div class="form-group form-group--buttons">
@@ -47,5 +52,6 @@
     <footer>
       <%@ include file="fragments/footer.jsp"%>
     </footer>
+    <script src="js/app.js"></script>
   </body>
 </html>
