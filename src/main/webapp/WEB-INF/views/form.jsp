@@ -226,8 +226,9 @@
       </div>
     </section>
 
-   <%@ include file="fragments/footer.jsp"%>
+    <footer>
+      <%@ include file="fragments/footer.jsp"%>
+    </footer>
     <script src="js/app.js"></script>
-
   </body>
 </html>

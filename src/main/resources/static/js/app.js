@@ -294,5 +294,83 @@ document.addEventListener("DOMContentLoaded", function() {
   const form = document.querySelector(".form--steps");
   if (form !== null) {
     new FormSteps(form);
+
+  }
+
+  class RegisterForm{
+    constructor(form) {
+
+      form.addEventListener("submit", e => {
+        e.preventDefault();
+        if (this.firstName() && this.lastName() && this.email() && this.password() && this.password2()){
+          form.submit();
+        }
+      })
+    }
+    firstName(){
+      const firstName = document.querySelector("#firstName");
+      if (firstName.value === ""){
+        firstName.parentElement.querySelector("p").innerHTML = "Podaj imię";
+        return false;
+      } else {
+        return true;
+      }
+    }
+    lastName(){
+      const lastName = document.querySelector("#lastName");
+      if (lastName.value === ""){
+        lastName.parentElement.querySelector("p").innerHTML = "Podaj nazwisko";
+        return false;
+      } else {
+        return true;
+      }
+    }
+    email(){
+      const email = document.querySelector("#email");
+      if (!/(.+)@(.+){2,}\.(.+){2,}/.test(email.value) || email.value === ""){
+        email.parentElement.querySelector("p").innerHTML = "Podaj poprawny adres e-mail";
+        return false;
+      } else {
+        return true;
+      }
+    }
+    password(){
+      const password = document.querySelector("#password");
+      const errors = [];
+      if (password.value.length < 8){
+        errors.push("Hasło powinno mieć conajmniej 8 znaków!");
+      }
+      if (!/\d/.test(password.value)){
+        errors.push("Hasło powinno zwierać przynajmniej jedną cyfrę!");
+      }
+      if (!/[a-z]/.test(password.value)){
+        errors.push("Hasło powinno zawierać przynajmniej jedną małą literę!");
+      }
+      if (!/[A-Z]/.test(password.value)){
+        errors.push("Hasło powinno zawierać przynajmniej jedna dużą literę!")
+      }
+      if (errors.length !== 0){
+        password.parentElement.querySelector("p").innerHTML =
+            errors.join("<br/>");
+        return false;
+      } else {
+        return true;
+      }
+    }
+    password2(){
+      const password2 = document.querySelector("#password2");
+      const password = document.querySelector("#password");
+      if (password2.value !== password.value){
+        password2.parentElement.querySelector("p").innerHTML = "Podane hasła nie są takie same!";
+        return false;
+      } else {
+        return true;
+      }
+    }
+  }
+
+  const registerForm = document.querySelector("#registerForm");
+  if (registerForm != null){
+    new RegisterForm(registerForm);
   }
 });
