@@ -54,12 +54,6 @@ public class DonationController {
     public String donationForm(Donation donation, HttpServletRequest request){
 
         donationService.save(donation);
-//        String[] categories = request.getParameterValues("categories");
-//        for (String c : categories){
-//            Category category = categoryService.findById(Long.parseLong(c));
-//            donationService.addCategoryToDonation(category, donation);
-//        }
-
         return "redirect:/przekaz-dary/przeslano";
     }
 

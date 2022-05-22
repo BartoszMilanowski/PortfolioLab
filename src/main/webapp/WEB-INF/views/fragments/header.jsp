@@ -8,6 +8,9 @@
             </sec:authorize>
             <sec:authorize access="isAuthenticated()">
                 <li>
+                    Cześć <sec:authentication property="principal.username"/>
+                </li>
+                <li>
                     <form action="/logout" method="post">
                         <input type="submit" value="Wyloguj" class="btn btn--small btn--highlighted"/>
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
@@ -22,5 +25,8 @@
             <li><a href="/#o-nas" class="btn btn--without-border">O nas</a></li>
             <li><a href="/#fundacje-i-organizacje" class="btn btn--without-border">Fundacje i organizacje</a></li>
             <li><a href="/#kontakt" class="btn btn--without-border">Kontakt</a></li>
+            <sec:authorize access="isAuthenticated()">
+                <li><a href="/przekaz-dary" class="btn btn--without-border">Przekaż dary</a></li>
+            </sec:authorize>
         </ul>
     </nav>
