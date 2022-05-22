@@ -18,6 +18,16 @@ public class User {
 
     private String password;
 
+    private int enabled;
+
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    private Role role;
+
+    public String getName(){
+        return firstName + " " + lastName;
+    }
+
     public Long getId() {
         return id;
     }
@@ -56,5 +66,21 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public int getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(int enabled) {
+        this.enabled = enabled;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }
