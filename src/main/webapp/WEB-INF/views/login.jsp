@@ -18,7 +18,8 @@
 
     <section class="login-page">
       <h2>Zaloguj się</h2>
-      <form method="post">
+      <p style="color: red">${error}</p>
+      <form method="post" action="/login">
         <div class="form-group">
           <input type="text" name="username" placeholder="Email"/>
         </div>

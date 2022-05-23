@@ -52,6 +52,13 @@ public class HomeController {
         return "register";
     }
 
+    @GetMapping("/login/error")
+    public String login(Model model){
+
+        model.addAttribute("error", "Wprowadzono błędny adres e-mail lub hasło!");
+        return "login";
+    }
+
     @PostMapping("/zarejestruj-sie")
     public String register(HttpServletRequest request){
 
