@@ -9,6 +9,7 @@ import pl.coderslab.charity.entity.Institution;
 import pl.coderslab.charity.entity.User;
 import pl.coderslab.charity.services.DonationService;
 import pl.coderslab.charity.services.InstitutionService;
+import pl.coderslab.charity.services.RoleService;
 import pl.coderslab.charity.services.UserService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,13 +24,16 @@ public class HomeController {
     private final UserService userService;
     private final BCryptPasswordEncoder passwordEncoder;
 
+    private final RoleService roleService;
 
     public HomeController(InstitutionService institutionService, DonationService donationService,
-                          UserService userService, BCryptPasswordEncoder passwordEncoder) {
+                          UserService userService, BCryptPasswordEncoder passwordEncoder,
+                          RoleService roleService) {
         this.institutionService = institutionService;
         this.donationService = donationService;
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
+        this.roleService = roleService;
     }
 
     @GetMapping("/")
@@ -43,15 +47,16 @@ public class HomeController {
         model.addAttribute("institutions", institutionList);
         return "index";
     }
-
-    @GetMapping("/login")
-    public String loginForm(){
-        return "login";
-    }
-
     @GetMapping("/zarejestruj-sie")
     public String registerForm(){
         return "register";
+    }
+
+    @GetMapping("/login/error")
+    public String login(Model model){
+
+        model.addAttribute("error", "Wprowadzono błędny adres e-mail lub hasło!");
+        return "login";
     }
 
     @PostMapping("/zarejestruj-sie")
@@ -61,6 +66,8 @@ public class HomeController {
         user.setFirstName(request.getParameter("firstName"));
         user.setLastName(request.getParameter("lastName"));
         user.setEmail(request.getParameter("email"));
+        user.setEnabled(1);
+        user.setRole(roleService.findByName("ROLE_USER"));
         user.setPassword(passwordEncoder.encode(request.getParameter("password")));
         userService.save(user);
 

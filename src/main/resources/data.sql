@@ -1,3 +1,9 @@
+insert into charity_donation.roles (name) value ('ROLE_USER');
+insert into charity_donation.roles (name) value ('ROLE_ADMIN');
+
+insert into charity_donation.users (email, enabled, first_name, last_name, password, role_id) VALUES ('jan@kowalski.pl', 1, 'Jan', 'Kowalski', '$2a$12$aQ95vY7DFoQif0/h8dQX4.NPiWBDswcCw5cm0pNOp31gLanzinwaq', 1);
+
+
 insert into charity_donation.categories (name) values ('ubrania');
 insert into charity_donation.categories (name) values ('zabawki');
 insert into charity_donation.categories (name) values ('dania instant');
