@@ -74,7 +74,7 @@
             <h3>Zaznacz co chcesz oddać:</h3>
 
             <c:forEach items="${categories}" var="category">
-              <div class="form-group form-group--checkbox">
+              <div class="form-group form-group--checkbox" id="donationsDiv">
                 <label>
                   <input type="checkbox" name="categories" value="${category.id}" id="checkbox">
                   <span class="checkbox"></span>
@@ -82,7 +82,7 @@
                 </label>
               </div>
             </c:forEach>
-
+            <p style="color: red"></p>
             <div class="form-group form-group--buttons">
               <button type="button" class="btn next-step">Dalej</button>
             </div>
@@ -92,12 +92,13 @@
           <div data-step="2">
             <h3>Podaj liczbę 60l worków, w które spakowałeś/aś rzeczy:</h3>
 
-            <div class="form-group form-group--inline">
+            <div class="form-group form-group--inline" id="quantityDiv">
               <label>
                 Liczba 60l worków:&nbsp;
                 <form:input path="quantity" id="quantity"/>
               </label>
             </div>
+            <p style="color: red"></p>
 
             <div class="form-group form-group--buttons">
               <button type="button" class="btn prev-step">Wstecz</button>
@@ -112,7 +113,7 @@
             <h3>Wybierz organizacje, której chcesz pomóc:</h3>
 
             <c:forEach items="${institutions}" var="institution">
-              <div class="form-group form-group--checkbox">
+              <div class="form-group form-group--checkbox" id="institutionsDiv">
                 <label>
                   <form:radiobutton path="institution" value="${institution.id}" id="radio"/>
                   <span class="checkbox radio"></span>
@@ -123,6 +124,7 @@
                 </label>
               </div>
             </c:forEach>
+            <p style="color: red"></p>
 
             <div class="form-group form-group--buttons">
               <button type="button" class="btn prev-step">Wstecz</button>
@@ -137,35 +139,41 @@
             <div class="form-section form-section--columns">
               <div class="form-section--column">
                 <h4>Adres odbioru</h4>
-                <div class="form-group form-group--inline">
+                <div class="form-group form-group--inline" id="streetDiv">
                   <label> Ulica <form:input path="street" id="street"/> </label>
+                  <p style="color: red"></p>
                 </div>
 
-                <div class="form-group form-group--inline">
+                <div class="form-group form-group--inline" id="cityDiv">
                   <label> Miasto <form:input path="city" id="city"/> </label>
+                  <p style="color: red"></p>
                 </div>
 
-                <div class="form-group form-group--inline">
+                <div class="form-group form-group--inline" id="zipCodeDiv">
                   <label>
                     Kod pocztowy <form:input path="zipCode" id="zipCode"/>
                   </label>
+                  <p style="color: red"></p>
                 </div>
 
-                <div class="form-group form-group--inline">
+                <div class="form-group form-group--inline" id="phoneDiv">
                   <label>
                     Numer telefonu <form:input type="phone" path="phoneNumber" id="phone"/>
                   </label>
+                  <p style="color: red"></p>
                 </div>
               </div>
 
               <div class="form-section--column">
                 <h4>Termin odbioru</h4>
-                <div class="form-group form-group--inline">
+                <div class="form-group form-group--inline" id="dateDiv">
                   <label> Data <form:input type="date" path="pickUpDate" id="date"/> </label>
+                  <p style="color: red"></p>
                 </div>
 
-                <div class="form-group form-group--inline">
+                <div class="form-group form-group--inline" id="timeDiv">
                   <label> Godzina <form:input path="pickUpTime" type="time" id="time"/> </label>
+                  <p style="color: red"></p>
                 </div>
 
                 <div class="form-group form-group--inline">

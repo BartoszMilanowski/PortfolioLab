@@ -172,19 +172,17 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     checkFrom(){
-      const errors = document.querySelectorAll("#error");
-      for(let i = 0; i < errors.length; i++){
-        errors[i].remove();
-      }
+      // const errors = document.querySelectorAll("p");
+      // for(let i = 0; i < errors.length; i++){
+      //   errors[i].remove();
+      // }
       switch (this.currentStep){
         case 1:
-        const checked = document.querySelectorAll("input[id='checkbox']:checked");
+        const checked = document.querySelectorAll("input[id='checkbox']:checked")
+
         if (checked.length === 0){
-          const div = document.querySelector("div[data-step='1']");
-          let p = document.createElement("h3");
-          p.style.color = "red";
-          p.innerHTML = "<br/>Zaznacz rodzaj przekazywanych darów!";
-          div.appendChild(p);
+          const donationsDiv = document.querySelector("#donationsDiv");
+          donationsDiv.parentElement.querySelector("p").innerHTML = "Zaznacz rodzaje przekazywanych darów!";
           return false;
         } else {
           return true;
@@ -192,12 +190,8 @@ document.addEventListener("DOMContentLoaded", function() {
         case 2:
        const quantity = document.querySelector("input[id='quantity']").value;
        if (quantity < 1 || !Number.isInteger(parseInt(quantity))){
-         const div = document.querySelector("div[data-step='2']");
-         let p = document.createElement("h3");
-         p.style.color = "red";
-         p.setAttribute("id", "error");
-         p.innerHTML = "<br/>Podaj liczbę przekazywanych worków!";
-         div.appendChild(p);
+         const quantityDiv = document.querySelector("#quantityDiv");
+         quantityDiv.parentElement.querySelector("p").innerHTML = "Podaj liczbę przekazywanych worków!";
          return false;
        } else {
          return true;
@@ -205,12 +199,9 @@ document.addEventListener("DOMContentLoaded", function() {
         case 3:
         const institution = document.querySelectorAll("input[id='radio']:checked");
         if (institution.length === 0){
-          const div = document.querySelector("div[data-step='3']");
-          let p = document.createElement("h3");
-          p.style.color = "red";
-          p.setAttribute("id", "error");
-          p.innerHTML = "<br/>Wybierz fundację, której chcesz przekazać dary!";
-          div.appendChild(p);
+          const institutionsDiv = document.querySelector("#institutionsDiv");
+          institutionsDiv.parentElement.querySelector("p").innerHTML =
+              "Wybierz fundację, której chcesz przekazać dary";
           return false;
         } else {
           return true;
@@ -219,35 +210,41 @@ document.addEventListener("DOMContentLoaded", function() {
         let errors = [];
         const street = document.querySelector("input[id='street']").value;
         if (street === ""){
-          errors.push("adres odbioru");
+          document.querySelector("#streetDiv").querySelector("p").innerHTML =
+              "Podaj adres odbioru darów: ulica + numer domu!";
+          errors.push(1);
         }
         const city = document.querySelector("input[id='city']").value;
         if (city === ""){
-          errors.push("miasto odbioru");
+          document.querySelector("#cityDiv").querySelector("p").innerHTML =
+              "Podaj miasto odbioru darów!";
+          errors.push(1);
         }
         const zipCode = document.querySelector("input[id='zipCode']").value;
         if (zipCode === ""){
-          errors.push("kod pocztowy");
+          document.querySelector("#zipCodeDiv").querySelector("p").innerHTML =
+              "Podaj kod pocztowy!";
+          errors.push(1);
         }
         const phone = document.querySelector("input[id='phone']").value;
         if (phone === ""){
-          errors.push("numer kontaktowy");
+          document.querySelector("#phoneDiv").querySelector("p").innerHTML =
+              "Podaj numer telefonu do kontaktu!";
+          errors.push(1);
         }
         const date = document.querySelector("input[id='date']").value;
         if (date === ""){
-          errors.push("preferowaną datę odbioru");
+          document.querySelector("#dateDiv").querySelector("p").innerHTML =
+              "Podaj preferowaną datę odbioru darów!";
+          errors.push(1);
         }
         const time = document.querySelector("input[id='time']").value;
         if (time === ""){
-          errors.push("preferowaną godzinę odbioru");
+          document.querySelector("#timeDiv").querySelector("p").innerHTML =
+              "Podaj preferowaną godzinę odbioru darów!";
+          errors.push(1);
         }
         if (errors.length !== 0){
-          const div = document.querySelector("div[data-step='4']");
-          let p = document.createElement("h3");
-          p.style.color = "red";
-          p.setAttribute("id", "error");
-          p.innerHTML = "<br/>Uzupełnij: " + errors.join(", ") + "!";
-          div.appendChild(p);
           return false;
         } else {
           return true;
@@ -273,7 +270,7 @@ document.addEventListener("DOMContentLoaded", function() {
       const comment = document.querySelector("#comment").value;
 
       const donationText = document.querySelector("#donation");
-      donationText.innerHTML = "Worki: " + quantity + ", dary: " + categories.join(", ") + ".";
+      donationText.innerHTML = "Liczba worków: " + quantity + ", rodzaj darów: " + categories.join(", ") + ".";
 
       const forText = document.querySelector("#for");
       forText.innerHTML = "Dla: " + institution + ".";
