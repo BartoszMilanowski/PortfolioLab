@@ -1,22 +1,57 @@
 package pl.coderslab.charity.services;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import pl.coderslab.charity.entity.Role;
+import pl.coderslab.charity.entity.User;
 
 import java.util.Collection;
+import java.util.Set;
+import java.util.stream.Collectors;
 
-public class CurrentUser extends User {
+@Getter
+@AllArgsConstructor
+public class CurrentUser implements UserDetails {
 
-    private final pl.coderslab.charity.entity.User user;
+    private final User user;
 
-    public CurrentUser(String username, String password,
-                       Collection<? extends GrantedAuthority> authorities,
-                       pl.coderslab.charity.entity.User user){
-        super(username, password, authorities);
-        this.user = user;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        Set<Role> roles = user.getRoles();
+        return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
+
     }
 
-    public pl.coderslab.charity.entity.User getUser(){
-        return user;
+    @Override
+    public String getPassword() {
+        return user.getPassword();
+    }
+
+    @Override
+    public String getUsername() {
+        return user.getEmail();
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return user.isEnabled();
     }
 }

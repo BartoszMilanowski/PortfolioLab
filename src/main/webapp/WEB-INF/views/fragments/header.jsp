@@ -8,8 +8,11 @@
             </sec:authorize>
             <sec:authorize access="isAuthenticated()">
                 <li>
-                    Cześć <sec:authentication property="principal.username"/>
+                    Cześć <sec:authentication property="principal.user.firstName"/>
                 </li>
+                <sec:authorize access="hasRole('ROLE_ADMIN')">
+                    <li>admin</li>
+                </sec:authorize>
                 <li>
                     <form action="/logout" method="post">
                         <input type="submit" value="Wyloguj" class="btn btn--small btn--highlighted"/>
@@ -17,16 +20,17 @@
                     </form>
                 </li>
             </sec:authorize>
+
         </ul>
 
         <ul>
             <li><a href="/" class="btn btn--without-border active">Start</a></li>
+            <sec:authorize access="isAuthenticated()">
+                <li><a href="/przekaz-dary" class="btn btn--highlighted">Przekaż dary</a></li>
+            </sec:authorize>
             <li><a href="/#o-co-chodzi" class="btn btn--without-border">O co chodzi?</a></li>
             <li><a href="/#o-nas" class="btn btn--without-border">O nas</a></li>
             <li><a href="/#fundacje-i-organizacje" class="btn btn--without-border">Fundacje i organizacje</a></li>
             <li><a href="/#kontakt" class="btn btn--without-border">Kontakt</a></li>
-            <sec:authorize access="isAuthenticated()">
-                <li><a href="/przekaz-dary" class="btn btn--without-border">Przekaż dary</a></li>
-            </sec:authorize>
         </ul>
     </nav>

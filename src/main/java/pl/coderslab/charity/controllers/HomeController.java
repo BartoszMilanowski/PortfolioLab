@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import pl.coderslab.charity.entity.Institution;
+import pl.coderslab.charity.entity.Role;
 import pl.coderslab.charity.entity.User;
 import pl.coderslab.charity.services.DonationService;
 import pl.coderslab.charity.services.InstitutionService;
@@ -13,7 +14,9 @@ import pl.coderslab.charity.services.RoleService;
 import pl.coderslab.charity.services.UserService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 @Controller
@@ -66,9 +69,12 @@ public class HomeController {
         user.setFirstName(request.getParameter("firstName"));
         user.setLastName(request.getParameter("lastName"));
         user.setEmail(request.getParameter("email"));
-        user.setEnabled(1);
-        user.setRole(roleService.findByName("ROLE_USER"));
+        user.setEnabled(true);
         user.setPassword(passwordEncoder.encode(request.getParameter("password")));
+        Set<Role> roleSet = new HashSet<>();
+        roleSet.add(roleService.findByName("ROLE_USER"));
+        user.setRoles(roleSet);
+//        user.setRole(roleService.findByName("ROLE_USER"));
         userService.save(user);
 
         return "redirect:/login";

@@ -7,7 +7,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import pl.coderslab.charity.entity.Role;
 import pl.coderslab.charity.entity.User;
 
 import java.util.HashSet;
@@ -30,8 +29,10 @@ public class SpringDataUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException(username);
         }
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-         Role r = user.getRole();
-         grantedAuthorities.add(new SimpleGrantedAuthority(r.getName()));
-        return new CurrentUser(user.getEmail(), user.getPassword(), grantedAuthorities, user);
+        user.getRoles().forEach(r ->
+                grantedAuthorities.add(new SimpleGrantedAuthority(r.getName())));
+//        Role r = user.getRole();
+//        grantedAuthorities.add(new SimpleGrantedAuthority(r.getName()));
+        return new CurrentUser(user);
     }
 }
