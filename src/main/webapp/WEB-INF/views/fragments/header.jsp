@@ -7,11 +7,9 @@
             <li><a href="/zarejestruj-sie" class="btn btn--small btn--highlighted">Załóż konto</a></li>
             </sec:authorize>
             <sec:authorize access="isAuthenticated()">
-                <li>
-                    Cześć <sec:authentication property="principal.user.firstName"/>
-                </li>
+                <li><p>Cześć <sec:authentication property="principal.user.firstName"/></p></li>
                 <sec:authorize access="hasRole('ROLE_ADMIN')">
-                    <li>admin</li>
+                    <li><a href="/admin/" class="btn btn--small btn--without-border">Panel administratora</a></li>
                 </sec:authorize>
                 <li>
                     <form action="/logout" method="post">
