@@ -28,10 +28,6 @@ public class User {
 
     private boolean enabled;
 
-//    @ManyToOne
-//    @JoinColumn(name = "role_id")
-//    private Role role;
-
    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"),
    inverseJoinColumns = @JoinColumn(name = "role_id"))
