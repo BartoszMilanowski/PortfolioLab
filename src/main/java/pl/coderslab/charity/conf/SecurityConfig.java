@@ -27,7 +27,7 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/przekaz-dary").authenticated()
                 .and().formLogin().loginPage("/login")
-                .defaultSuccessUrl("/")
+                .successHandler(loginSuccessHandler())
                 .failureUrl("/login/error")
                 .and().logout().logoutSuccessUrl("/");
     }
@@ -50,5 +50,8 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
         return daoAuthenticationProvider;
     }
 
-
+    @Bean
+    public LoginSuccessHandler loginSuccessHandler(){
+        return new LoginSuccessHandler();
+    }
 }

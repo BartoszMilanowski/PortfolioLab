@@ -27,4 +27,5 @@ public class Role {
     public void setName(String name) {
         this.name = name;
     }
+
 }
