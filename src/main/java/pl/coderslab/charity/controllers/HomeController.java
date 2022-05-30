@@ -55,6 +55,7 @@ public class HomeController {
         return "register";
     }
 
+
     @GetMapping("/login/error")
     public String login(Model model){
 
@@ -74,7 +75,6 @@ public class HomeController {
         Set<Role> roleSet = new HashSet<>();
         roleSet.add(roleService.findByName("ROLE_USER"));
         user.setRoles(roleSet);
-//        user.setRole(roleService.findByName("ROLE_USER"));
         userService.save(user);
 
         return "redirect:/login";
