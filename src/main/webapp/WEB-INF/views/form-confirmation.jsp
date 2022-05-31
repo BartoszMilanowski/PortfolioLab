@@ -19,10 +19,12 @@
 
       <div class="slogan container container--90">
           <h2>
-            Dziękujemy za przesłanie formularza Na maila prześlemy wszelkie
-            informacje o odbiorze.
+            Dziękujemy za przesłanie formularza.
+            <br/>Na maila prześlemy wszelkie informacje o odbiorze.<br/><br/>
+            <a href="/" class="btn btn--highlighted">Strona główna</a>
           </h2>
       </div>
+
     </header>
 
     <footer>
