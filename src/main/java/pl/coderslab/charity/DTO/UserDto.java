@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class UserAtList {
+public class UserDto {
 
     private Long id;
 
@@ -20,8 +20,8 @@ public class UserAtList {
     private String role;
 
 
-    public UserAtList(Long id, String firstName, String lastName, String email,
-                      boolean enabledBoolean, boolean admin) {
+    public UserDto(Long id, String firstName, String lastName, String email,
+                   boolean enabledBoolean, boolean admin) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;

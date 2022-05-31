@@ -1,7 +1,7 @@
 package pl.coderslab.charity.services;
 
 import org.springframework.stereotype.Service;
-import pl.coderslab.charity.DTO.UserAtList;
+import pl.coderslab.charity.DTO.UserDto;
 import pl.coderslab.charity.entity.User;
 import pl.coderslab.charity.repository.UserRepository;
 
@@ -57,16 +57,16 @@ public class UserService {
         return userRepository.findByEmail(email);
     }
 
-    public List<UserAtList> usersAtList(){
+    public List<UserDto> usersAtList(){
         List<User> users = findAll();
-        List<UserAtList> list = new ArrayList<>();
+        List<UserDto> list = new ArrayList<>();
         for (User u : users){
             if (u.hasRole("ROLE_ADMIN")){
-                UserAtList user = new UserAtList(u.getId(), u.getFirstName(), u.getLastName(),
+                UserDto user = new UserDto(u.getId(), u.getFirstName(), u.getLastName(),
                         u.getEmail(), u.isEnabled(), true);
                 list.add(user);
             } else {
-                UserAtList user = new UserAtList(u.getId(), u.getFirstName(), u.getLastName(),
+                UserDto user = new UserDto(u.getId(), u.getFirstName(), u.getLastName(),
                         u.getEmail(), u.isEnabled(), false);
                 list.add(user);
             }
