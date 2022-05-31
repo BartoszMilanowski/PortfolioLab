@@ -40,7 +40,7 @@ public class DonationController {
 
     @ModelAttribute("institutions")
     public List<Institution> showInstitutions(){
-        return institutionService.findAll();
+        return institutionService.findAllActive();
     }
 
     @GetMapping

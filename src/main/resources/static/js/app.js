@@ -370,4 +370,39 @@ document.addEventListener("DOMContentLoaded", function() {
   if (registerForm != null){
     new RegisterForm(registerForm);
   }
+
+  class AddFoundationForm{
+    constructor(form) {
+      form.addEventListener("submit", e => {
+        e.preventDefault();
+
+        if (this.checkFoundName() && this.checkFoundDesc()) {
+          form.submit();
+        }
+      })
+    }
+    checkFoundName(){
+       const name = document.querySelector("#name");
+       if (name.value === ""){
+         name.parentElement.parentElement.querySelector("#nameError").innerHTML = "Podaj nazwę fundacji";
+         return false;
+       } else {
+         return true;
+       }
+    }
+    checkFoundDesc(){
+      const desc = document.querySelector("#description");
+      if (desc.value === ""){
+        desc.parentElement.parentElement.querySelector("#descError").innerHTML = "Podaj opis fundacji";
+        return false;
+      } else {
+        return true;
+      }
+    }
+  }
+
+  const foundationForm = document.querySelector("#fundForm")
+  if (foundationForm != null){
+    new AddFoundationForm(foundationForm);
+  }
 });

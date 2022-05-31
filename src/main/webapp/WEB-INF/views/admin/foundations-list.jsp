@@ -19,40 +19,34 @@
     </div>
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Lista użytkowników</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Lista fundacji</h6>
         </div>
         <div class="card-body">
             <table class="table">
                 <thead>
                 <tr>
-                    <th scope="col">Nazwisko</th>
-                    <th scope="col">Imię</th>
-                    <th scope="col">Adres e-mail</th>
-                    <th scope="col">Aktywny</th>
-                    <th scope="col">Funkcja</th>
+                    <th scope="col">Nazwa fundacji</th>
+                    <th scope="col">Opis fundacji</th>
                     <th scope="col"></th>
                     <th scope="col"></th>
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach items="${list}" var="user">
+                <c:forEach items="${list}" var="foundation">
                     <tr>
-                        <td>${user.lastName}</td>
-                        <td>${user.firstName}</td>
-                        <td>${user.email}</td>
-                        <td>${user.enabled}
-                        <a href="/admin/user/enabled/${user.id}"
-                           class="d-none d-inline-block btn btn-sm btn-primary shadow-sm"> Zmień</a></td>
-                        <td>${user.role}</td>
-                        <td><a href="/admin/user/edit/${user.id}"
+                        <td>${foundation.name}</td>
+                        <td>${foundation.description}</td>
+                        <td>${foundation.active}
+                            <a href="/admin/foundation/deactivate/${foundation.id}"
+                               class="d-none d-inline-block btn btn-sm btn-primary shadow-sm">Zmień</a></td>
+                        <td><a href="/admin/foundation/edit/${foundation.id}"
                                class="d-none d-inline-block btn btn-sm btn-primary shadow-sm">Edytuj</a></td>
-                        <td><a href="/admin/user/delete/${user.id}"
-                               class="d-none d-inline-block btn btn-sm btn-primary shadow-sm">Usuń</a></td>
                     </tr>
                 </c:forEach>
                 </tbody>
             </table>
         </div>
+        <a href="/admin/foundation/add" class="d-none d-inline-block btn btn-sm btn-primary shadow-sm">Dodaj fundację</a>
     </div>
     <a href="/admin/" class="d-none d-inline-block btn btn-sm btn-primary shadow-sm">Wróć</a>
 </div>

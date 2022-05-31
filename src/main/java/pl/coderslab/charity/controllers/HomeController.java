@@ -46,7 +46,7 @@ public class HomeController {
         int donationNumber = donationService.findAll().size();
         model.addAttribute("quantity", donationsSum);
         model.addAttribute("donationsNumber", donationNumber);
-        List<Institution> institutionList = institutionService.findAll();
+        List<Institution> institutionList = institutionService.findAllActive();
         model.addAttribute("institutions", institutionList);
         return "index";
     }
