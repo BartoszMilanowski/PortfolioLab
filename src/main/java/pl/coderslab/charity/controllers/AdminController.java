@@ -10,13 +10,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import pl.coderslab.charity.DTO.InstitutionDto;
 import pl.coderslab.charity.DTO.UserDto;
 import pl.coderslab.charity.entity.Institution;
+import pl.coderslab.charity.entity.Role;
 import pl.coderslab.charity.entity.User;
 import pl.coderslab.charity.services.InstitutionService;
 import pl.coderslab.charity.services.RoleService;
 import pl.coderslab.charity.services.UserService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/admin")
@@ -63,15 +66,28 @@ public class AdminController {
     public String editUserForm(Model model, @PathVariable Long userId){
         User user = userService.findById(userId);
         model.addAttribute("user", user);
+        if (user.hasRole("ROLE_USER")){
+            model.addAttribute("role", "user");
+        }
         return "admin/edit-user";
     }
 
     @PostMapping("/user/edit")
     public String editUser(User user, HttpServletRequest request){
 
+        Set<Role> roleSet = new HashSet<>();
+        String redirect;
+        if (request.getParameter("role").equals("user")){
+            roleSet.add(roleService.findByName("ROLE_USER"));
+            redirect = "redirect:/admin/users";
+        } else {
+            roleSet.add(roleService.findByName("ROLE_ADMIN"));
+            redirect = "redirect:/admin/admins";
+        }
+        user.setRoles(roleSet);
         user.setEnabled(true);
         userService.update(user);
-        return "redirect:/admin/users";
+        return redirect;
     }
 
     @GetMapping("/foundations")

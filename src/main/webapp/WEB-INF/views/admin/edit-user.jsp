@@ -23,6 +23,7 @@
                 <div class="form-group"><br/><br/>
                     <form:hidden path="id"/>
                     <form:hidden path="password"/>
+                    <input type="hidden" name="role" value="${role}">
                     <span>&nbsp;Imię: <form:input path="firstName" id="firstName" /></span><br/><br/>
                     <span>&nbsp;Nazwisko: <form:input path="lastName" id="lastName"/></span><br/><br/>
                     <span>&nbsp;Adres e-mail: <form:input type="email" path="email" id="email"/></span><br/><br/>
