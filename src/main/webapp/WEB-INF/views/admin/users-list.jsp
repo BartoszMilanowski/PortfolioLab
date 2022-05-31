@@ -28,8 +28,7 @@
                     <th scope="col">Nazwisko</th>
                     <th scope="col">Imię</th>
                     <th scope="col">Adres e-mail</th>
-                    <th scope="col">Aktywny</th>
-                    <th scope="col">Funkcja</th>
+                    <th scope="col"></th>
                     <th scope="col"></th>
                     <th scope="col"></th>
                 </tr>
@@ -43,7 +42,6 @@
                         <td>${user.enabled}
                         <a href="/admin/user/enabled/${user.id}"
                            class="d-none d-inline-block btn btn-sm btn-primary shadow-sm"> Zmień</a></td>
-                        <td>${user.role}</td>
                         <td><a href="/admin/user/edit/${user.id}"
                                class="d-none d-inline-block btn btn-sm btn-primary shadow-sm">Edytuj</a></td>
                         <td><a href="/admin/user/delete/${user.id}"

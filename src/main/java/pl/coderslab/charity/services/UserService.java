@@ -44,6 +44,32 @@ public class UserService {
         userRepository.save(user);
     }
 
+    public List<UserDto> findUsers(){
+        List<User> all = userRepository.findAll();
+        List<UserDto> list = new ArrayList<>();
+        for (User u : all){
+            if (u.hasRole("ROLE_USER")){
+                UserDto userDto = new UserDto(u.getId(), u.getFirstName(), u.getLastName(),
+                        u.getEmail(), u.isEnabled());
+                list.add(userDto);
+            }
+        }
+        return list;
+    }
+
+    public List<UserDto> findAdmins(){
+        List<User> all = userRepository.findAll();
+        List<UserDto> list = new ArrayList<>();
+        for (User u : all){
+            if (u.hasRole("ROLE_ADMIN")){
+                UserDto userDto = new UserDto(u.getId(), u.getFirstName(), u.getLastName(),
+                        u.getEmail(), u.isEnabled());
+                list.add(userDto);
+            }
+        }
+        return list;
+    }
+
     public List<User> findAll(){
         return userRepository.findAll();
     }
@@ -55,22 +81,5 @@ public class UserService {
 
     public User findByEmail(String email){
         return userRepository.findByEmail(email);
-    }
-
-    public List<UserDto> usersAtList(){
-        List<User> users = findAll();
-        List<UserDto> list = new ArrayList<>();
-        for (User u : users){
-            if (u.hasRole("ROLE_ADMIN")){
-                UserDto user = new UserDto(u.getId(), u.getFirstName(), u.getLastName(),
-                        u.getEmail(), u.isEnabled(), true);
-                list.add(user);
-            } else {
-                UserDto user = new UserDto(u.getId(), u.getFirstName(), u.getLastName(),
-                        u.getEmail(), u.isEnabled(), false);
-                list.add(user);
-            }
-        }
-        return list;
     }
 }

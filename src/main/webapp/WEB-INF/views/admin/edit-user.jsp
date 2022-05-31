@@ -26,14 +26,6 @@
                     <span>&nbsp;Imię: <form:input path="firstName" id="firstName" /></span><br/><br/>
                     <span>&nbsp;Nazwisko: <form:input path="lastName" id="lastName"/></span><br/><br/>
                     <span>&nbsp;Adres e-mail: <form:input type="email" path="email" id="email"/></span><br/><br/>
-                    <c:choose>
-                        <c:when test="${admin.equals('admin')}">
-                            <span><input type="checkbox" name="admin" checked="checked">&nbsp;Administrator</span>
-                        </c:when>
-                        <c:otherwise>
-                            <span><input type="checkbox" name="admin">&nbsp;Administrator</span>
-                        </c:otherwise>
-                    </c:choose>
                     </span><br/><br/>
                     &nbsp;<input type="submit" value="Zapisz"
                                  class="d-none d-inline-block btn btn-sm btn-primary shadow-sm">

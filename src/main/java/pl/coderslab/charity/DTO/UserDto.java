@@ -21,7 +21,7 @@ public class UserDto {
 
 
     public UserDto(Long id, String firstName, String lastName, String email,
-                   boolean enabledBoolean, boolean admin) {
+                   boolean enabledBoolean) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -30,11 +30,6 @@ public class UserDto {
             this.enabled = "aktywny";
         } else {
             this.enabled = "nieaktywny";
-        }
-        if (!admin){
-            role = "użytkownik";
-        } else {
-            role = "administrator";
         }
     }
 

@@ -10,16 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import pl.coderslab.charity.DTO.InstitutionDto;
 import pl.coderslab.charity.DTO.UserDto;
 import pl.coderslab.charity.entity.Institution;
-import pl.coderslab.charity.entity.Role;
 import pl.coderslab.charity.entity.User;
 import pl.coderslab.charity.services.InstitutionService;
 import pl.coderslab.charity.services.RoleService;
 import pl.coderslab.charity.services.UserService;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Controller
 @RequestMapping("/admin")
@@ -40,7 +37,7 @@ public class AdminController {
 
     @GetMapping("/users")
     public String usersList(Model model){
-        List<UserDto> list = userService.usersAtList();
+        List<UserDto> list = userService.findUsers();
         model.addAttribute("list", list);
         return "admin/users-list";
     }
@@ -49,7 +46,11 @@ public class AdminController {
     public String changeEnabled(@PathVariable Long userId){
         User user = userService.findById(userId);
         userService.changeEnabled(user);
+        if (user.hasRole("ROLE_USER")){
         return "redirect:/admin/users";
+        } else {
+            return "redirect:/admin/admins";
+        }
     }
 
     @GetMapping("/user/delete/{userId}")
@@ -62,23 +63,12 @@ public class AdminController {
     public String editUserForm(Model model, @PathVariable Long userId){
         User user = userService.findById(userId);
         model.addAttribute("user", user);
-        if(user.hasRole("ROLE_ADMIN")){
-            model.addAttribute("admin", "admin");
-        }
         return "admin/edit-user";
     }
 
     @PostMapping("/user/edit")
     public String editUser(User user, HttpServletRequest request){
 
-        String admin = request.getParameter("admin");
-        Set<Role> roleSet = new HashSet<>();
-        if (admin != null){
-            roleSet.add(roleService.findByName("ROLE_ADMIN"));
-        } else {
-            roleSet.add(roleService.findByName("ROLE_USER"));
-        }
-        user.setRoles(roleSet);
         user.setEnabled(true);
         userService.update(user);
         return "redirect:/admin/users";
@@ -124,5 +114,12 @@ public class AdminController {
     public String deactivateFoundation(@PathVariable Long foundId){
         institutionService.deactivateFoundation(institutionService.findById(foundId));
         return "redirect:/admin/foundations";
+    }
+
+    @GetMapping("/admins")
+    public String adminsList(Model model){
+        List<UserDto> list = userService.findAdmins();
+        model.addAttribute("list", list);
+        return "admin/users-list";
     }
 }
