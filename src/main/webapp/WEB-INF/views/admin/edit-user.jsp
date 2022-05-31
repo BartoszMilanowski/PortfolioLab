@@ -16,9 +16,18 @@
 <%@include file="admin-header.jsp"%>
     <div class="container-fluid">
         <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Edycja użytkownika</h6>
-            </div>
+            <c:choose>
+                <c:when test="${role.equals('user')}">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Edycja użytkownika</h6>
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Edycja administratora</h6>
+                    </div>
+                </c:otherwise>
+            </c:choose>
             <form:form cssClass="user" modelAttribute="user" method="post" id="form" action="/admin/user/edit">
                 <div class="form-group"><br/><br/>
                     <form:hidden path="id"/>

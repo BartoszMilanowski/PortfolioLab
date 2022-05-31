@@ -18,9 +18,19 @@
         <h1 class="h3 mb-0 text-gray-800">Pulpit administratora</h1>
     </div>
     <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Lista użytkowników</h6>
-        </div>
+        <c:choose>
+            <c:when test="${users.equals('users')}">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Lista użytkowników</h6>
+                </div>
+            </c:when>
+            <c:otherwise>
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Lista administratorów</h6>
+                </div>
+            </c:otherwise>
+        </c:choose>
+
         <div class="card-body">
             <table class="table">
                 <thead>

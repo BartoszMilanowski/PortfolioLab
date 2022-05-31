@@ -42,6 +42,7 @@ public class AdminController {
     public String usersList(Model model){
         List<UserDto> list = userService.findUsers();
         model.addAttribute("list", list);
+        model.addAttribute("users", "users");
         return "admin/users-list";
     }
 
@@ -58,8 +59,15 @@ public class AdminController {
 
     @GetMapping("/user/delete/{userId}")
     public String deleteUser(@PathVariable Long userId){
+
+        String redirect;
+        if (userService.findById(userId).hasRole("ROLE_USER")){
+            redirect = "redirect:/admin/users";
+        } else {
+            redirect = "redirect:/admin/admins";
+        }
         userService.deleteById(userId);
-        return "redirect:/admin/users";
+        return redirect;
     }
 
     @GetMapping("/user/edit/{userId}")
