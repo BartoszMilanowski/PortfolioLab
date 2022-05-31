@@ -89,4 +89,17 @@ public class AdminController {
         model.addAttribute("list", institutions);
         return "admin/foundations-list";
     }
+
+    @GetMapping("/foundation/add")
+    public String addFoundationForm(Model model){
+        Institution institution = new Institution();
+        model.addAttribute("institution", institution);
+        return "admin/add-foundation-form";
+    }
+
+    @PostMapping("/foundation/add")
+    public String addFoundation(Institution institution){
+        institutionService.save(institution);
+        return "redirect:/admin/foundations";
+    }
 }

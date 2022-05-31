@@ -44,6 +44,7 @@
                 </tbody>
             </table>
         </div>
+        <a href="/admin/foundation/add" class="d-none d-inline-block btn btn-sm btn-primary shadow-sm">Dodaj fundację</a>
     </div>
     <a href="/admin/" class="d-none d-inline-block btn btn-sm btn-primary shadow-sm">Wróć</a>
 </div>
