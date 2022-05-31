@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.coderslab.charity.DTO.UserDto;
+import pl.coderslab.charity.entity.Institution;
 import pl.coderslab.charity.entity.Role;
 import pl.coderslab.charity.entity.User;
+import pl.coderslab.charity.services.InstitutionService;
 import pl.coderslab.charity.services.RoleService;
 import pl.coderslab.charity.services.UserService;
 
@@ -26,6 +28,8 @@ public class AdminController {
     private final UserService userService;
 
     private final RoleService roleService;
+
+    private final InstitutionService institutionService;
 
 
     @GetMapping("/")
@@ -76,7 +80,13 @@ public class AdminController {
         user.setRoles(roleSet);
         user.setEnabled(true);
         userService.update(user);
-
         return "redirect:/admin/users";
+    }
+
+    @GetMapping("/foundations")
+    public String foundationsList(Model model){
+        List<Institution> institutions = institutionService.findAll();
+        model.addAttribute("list", institutions);
+        return "admin/foundations-list";
     }
 }
