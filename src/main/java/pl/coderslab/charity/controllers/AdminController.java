@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import pl.coderslab.charity.DTO.InstitutionDto;
 import pl.coderslab.charity.DTO.UserDto;
 import pl.coderslab.charity.entity.Institution;
 import pl.coderslab.charity.entity.Role;
@@ -85,7 +86,7 @@ public class AdminController {
 
     @GetMapping("/foundations")
     public String foundationsList(Model model){
-        List<Institution> institutions = institutionService.findAll();
+        List<InstitutionDto> institutions = institutionService.findAll();
         model.addAttribute("list", institutions);
         return "admin/foundations-list";
     }
@@ -99,6 +100,7 @@ public class AdminController {
 
     @PostMapping("/foundation/add")
     public String addFoundation(Institution institution){
+        institution.setActive(true);
         institutionService.save(institution);
         return "redirect:/admin/foundations";
     }
@@ -113,7 +115,14 @@ public class AdminController {
     @PostMapping("/foundation/edit/{foundId}")
     public String editFoundation(Institution institution, @PathVariable Long foundId){
         institution.setId(foundId);
+        institution.setActive(true);
         institutionService.update(institution);
+        return "redirect:/admin/foundations";
+    }
+
+    @GetMapping("/foundation/deactivate/{foundId}")
+    public String deactivateFoundation(@PathVariable Long foundId){
+        institutionService.deactivateFoundation(institutionService.findById(foundId));
         return "redirect:/admin/foundations";
     }
 }

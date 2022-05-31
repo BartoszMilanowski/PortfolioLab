@@ -18,4 +18,6 @@ public class Institution {
     private String name;
 
     private String description;
+
+    private boolean active;
 }
