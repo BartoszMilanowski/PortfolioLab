@@ -102,4 +102,18 @@ public class AdminController {
         institutionService.save(institution);
         return "redirect:/admin/foundations";
     }
+
+    @GetMapping("/foundation/edit/{foundId}")
+    public String editFoundationForm(Model model, @PathVariable Long foundId){
+        Institution institution = institutionService.findById(foundId);
+        model.addAttribute("institution", institution);
+        return "admin/edit-foundation-form";
+    }
+
+    @PostMapping("/foundation/edit/{foundId}")
+    public String editFoundation(Institution institution, @PathVariable Long foundId){
+        institution.setId(foundId);
+        institutionService.update(institution);
+        return "redirect:/admin/foundations";
+    }
 }

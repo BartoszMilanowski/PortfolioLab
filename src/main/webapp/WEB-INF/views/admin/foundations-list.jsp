@@ -36,7 +36,8 @@
                     <tr>
                         <td>${foundation.name}</td>
                         <td>${foundation.description}</td>
-                        <td><a href="" class="d-none d-inline-block btn btn-sm btn-primary shadow-sm">Edytuj</a></td>
+                        <td><a href="/admin/foundation/edit/${foundation.id}"
+                               class="d-none d-inline-block btn btn-sm btn-primary shadow-sm">Edytuj</a></td>
                         <td><a href="" class="d-none d-inline-block btn btn-sm btn-primary shadow-sm">Usuń
                         </a></td>
                     </tr>
