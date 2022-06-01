@@ -35,4 +35,19 @@ public class EmailSender {
         }
         javaMailSender.send(message);
     }
+
+    public void newUser(User user){
+        MimeMessage message = javaMailSender.createMimeMessage();
+        try {
+            MimeMessageHelper helper = new MimeMessageHelper(message, true);
+            helper.setText(user.getEmail());
+            helper.setFrom("info.egrades@gmail.com");
+            helper.setSubject("Rejestracja w 'Oddam w dobre ręce'");
+            helper.setText("Cześć " + user.getName() + "\nWitamy w aplikacji 'Oddam w dobre ręce!" +
+                    "\nTwój login: " + user.getEmail() +
+                    "\nDziękujemy, że jesteś z nami!");
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
