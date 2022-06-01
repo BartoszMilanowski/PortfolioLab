@@ -33,6 +33,7 @@ public class HomeController {
 
 
 
+
     @GetMapping("/")
     public String homeAction(Model model){
 
@@ -84,6 +85,21 @@ public class HomeController {
     public String changePass(HttpServletRequest request){
         User user = userService.findById(Long.parseLong(request.getParameter("userId")));
         user.setPassword(passwordEncoder.encode(request.getParameter("password")));
+        userService.update(user);
+        return "redirect:/login";
+    }
+
+    @GetMapping("/przypomnij-haslo")
+    public String remindPassForm(){
+        return "remind-pass";
+    }
+
+    @PostMapping("/przypomnij-haslo")
+    public String remindPass(HttpServletRequest request){
+        User user = userService.findByEmail(request.getParameter("email"));
+        String password = PasswordGenerator.generateStrongPassword();
+        user.setPassword(passwordEncoder.encode(password));
+        emailSender.passRemind(user, password);
         userService.update(user);
         return "redirect:/login";
     }
