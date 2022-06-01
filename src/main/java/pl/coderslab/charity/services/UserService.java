@@ -1,23 +1,22 @@
 package pl.coderslab.charity.services;
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.coderslab.charity.DTO.UserDto;
+import pl.coderslab.charity.entity.Role;
 import pl.coderslab.charity.entity.User;
 import pl.coderslab.charity.repository.UserRepository;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
+@AllArgsConstructor
 public class UserService {
 
     private final UserRepository userRepository;
 
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    private final RoleService roleService;
 
     @Transactional
     public void save(User user){
@@ -41,7 +40,45 @@ public class UserService {
         } else {
             user.setEnabled(true);
         }
-        userRepository.save(user);
+        update(user);
+    }
+
+    @Transactional
+    public void changeRole(User user){
+        Set<Role> roleSet = new HashSet<>();
+        if (user.hasRole("ROLE_USER")){
+            roleSet.add(roleService.findByName("ROLE_ADMIN"));
+        } else {
+            roleSet.add(roleService.findByName("ROLE_USER"));
+        }
+        user.setRoles(roleSet);
+        update(user);
+    }
+
+    public List<UserDto> findUsers(){
+        List<User> all = userRepository.findAll();
+        List<UserDto> list = new ArrayList<>();
+        for (User u : all){
+            if (u.hasRole("ROLE_USER")){
+                UserDto userDto = new UserDto(u.getId(), u.getFirstName(), u.getLastName(),
+                        u.getEmail(), u.isEnabled());
+                list.add(userDto);
+            }
+        }
+        return list;
+    }
+
+    public List<UserDto> findAdmins(){
+        List<User> all = userRepository.findAll();
+        List<UserDto> list = new ArrayList<>();
+        for (User u : all){
+            if (u.hasRole("ROLE_ADMIN")){
+                UserDto userDto = new UserDto(u.getId(), u.getFirstName(), u.getLastName(),
+                        u.getEmail(), u.isEnabled());
+                list.add(userDto);
+            }
+        }
+        return list;
     }
 
     public List<User> findAll(){
@@ -55,22 +92,5 @@ public class UserService {
 
     public User findByEmail(String email){
         return userRepository.findByEmail(email);
-    }
-
-    public List<UserDto> usersAtList(){
-        List<User> users = findAll();
-        List<UserDto> list = new ArrayList<>();
-        for (User u : users){
-            if (u.hasRole("ROLE_ADMIN")){
-                UserDto user = new UserDto(u.getId(), u.getFirstName(), u.getLastName(),
-                        u.getEmail(), u.isEnabled(), true);
-                list.add(user);
-            } else {
-                UserDto user = new UserDto(u.getId(), u.getFirstName(), u.getLastName(),
-                        u.getEmail(), u.isEnabled(), false);
-                list.add(user);
-            }
-        }
-        return list;
     }
 }

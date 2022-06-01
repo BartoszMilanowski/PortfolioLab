@@ -1,5 +1,6 @@
 package pl.coderslab.charity.controllers;
 
+import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,10 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import pl.coderslab.charity.entity.Institution;
 import pl.coderslab.charity.entity.Role;
 import pl.coderslab.charity.entity.User;
-import pl.coderslab.charity.services.DonationService;
-import pl.coderslab.charity.services.InstitutionService;
-import pl.coderslab.charity.services.RoleService;
-import pl.coderslab.charity.services.UserService;
+import pl.coderslab.charity.services.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashSet;
@@ -20,6 +18,7 @@ import java.util.Set;
 
 
 @Controller
+@AllArgsConstructor
 public class HomeController {
 
     private final InstitutionService institutionService;
@@ -29,15 +28,8 @@ public class HomeController {
 
     private final RoleService roleService;
 
-    public HomeController(InstitutionService institutionService, DonationService donationService,
-                          UserService userService, BCryptPasswordEncoder passwordEncoder,
-                          RoleService roleService) {
-        this.institutionService = institutionService;
-        this.donationService = donationService;
-        this.userService = userService;
-        this.passwordEncoder = passwordEncoder;
-        this.roleService = roleService;
-    }
+    private final EmailSender emailSender;
+
 
     @GetMapping("/")
     public String homeAction(Model model){
@@ -75,6 +67,7 @@ public class HomeController {
         Set<Role> roleSet = new HashSet<>();
         roleSet.add(roleService.findByName("ROLE_USER"));
         user.setRoles(roleSet);
+        emailSender.newUser(user);
         userService.save(user);
 
         return "redirect:/login";

@@ -18,9 +18,19 @@
         <h1 class="h3 mb-0 text-gray-800">Pulpit administratora</h1>
     </div>
     <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Lista użytkowników</h6>
-        </div>
+        <c:choose>
+            <c:when test="${users.equals('users')}">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Lista użytkowników</h6>
+                </div>
+            </c:when>
+            <c:otherwise>
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Lista administratorów</h6>
+                </div>
+            </c:otherwise>
+        </c:choose>
+
         <div class="card-body">
             <table class="table">
                 <thead>
@@ -28,8 +38,7 @@
                     <th scope="col">Nazwisko</th>
                     <th scope="col">Imię</th>
                     <th scope="col">Adres e-mail</th>
-                    <th scope="col">Aktywny</th>
-                    <th scope="col">Funkcja</th>
+                    <th scope="col"></th>
                     <th scope="col"></th>
                     <th scope="col"></th>
                 </tr>
@@ -43,7 +52,6 @@
                         <td>${user.enabled}
                         <a href="/admin/user/enabled/${user.id}"
                            class="d-none d-inline-block btn btn-sm btn-primary shadow-sm"> Zmień</a></td>
-                        <td>${user.role}</td>
                         <td><a href="/admin/user/edit/${user.id}"
                                class="d-none d-inline-block btn btn-sm btn-primary shadow-sm">Edytuj</a></td>
                         <td><a href="/admin/user/delete/${user.id}"
@@ -53,6 +61,12 @@
                 </tbody>
             </table>
         </div>
+        <c:choose>
+            <c:when test="${users.equals('admins')}">
+                <a href="/admin/add-admin"
+                   class="d-none d-inline-block btn btn-sm btn-primary shadow-sm">Dodaj administratora</a>
+            </c:when>
+        </c:choose>
     </div>
     <a href="/admin/" class="d-none d-inline-block btn btn-sm btn-primary shadow-sm">Wróć</a>
 </div>
