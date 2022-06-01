@@ -1,6 +1,7 @@
 package pl.coderslab.charity.controllers;
 
 import lombok.AllArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,9 +13,7 @@ import pl.coderslab.charity.DTO.UserDto;
 import pl.coderslab.charity.entity.Institution;
 import pl.coderslab.charity.entity.Role;
 import pl.coderslab.charity.entity.User;
-import pl.coderslab.charity.services.InstitutionService;
-import pl.coderslab.charity.services.RoleService;
-import pl.coderslab.charity.services.UserService;
+import pl.coderslab.charity.services.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashSet;
@@ -31,6 +30,10 @@ public class AdminController {
     private final RoleService roleService;
 
     private final InstitutionService institutionService;
+
+    private final BCryptPasswordEncoder passwordEncoder;
+
+    private final EmailSender emailSender;
 
 
     @GetMapping("/")
@@ -144,6 +147,27 @@ public class AdminController {
     public String adminsList(Model model){
         List<UserDto> list = userService.findAdmins();
         model.addAttribute("list", list);
+        model.addAttribute("users", "admins");
         return "admin/users-list";
+    }
+
+    @GetMapping("/add-admin")
+    public String addAdminForm(Model model){
+        User user = new User();
+        model.addAttribute("user", user);
+        return "admin/add-admin";
+    }
+
+    @PostMapping("/add-admin")
+    public String addAdmin(User user){
+        String password = PasswordGenerator.generateStrongPassword();
+        user.setPassword(passwordEncoder.encode(password));
+        user.setEnabled(true);
+        Set<Role>roles = new HashSet<>();
+        roles.add(roleService.findByName("ROLE_ADMIN"));
+        user.setRoles(roles);
+        userService.save(user);
+        emailSender.newAdmin(user, password);
+        return "redirect:/admin/admins";
     }
 }

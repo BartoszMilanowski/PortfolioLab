@@ -61,6 +61,12 @@
                 </tbody>
             </table>
         </div>
+        <c:choose>
+            <c:when test="${users.equals('admins')}">
+                <a href="/admin/add-admin"
+                   class="d-none d-inline-block btn btn-sm btn-primary shadow-sm">Dodaj administratora</a>
+            </c:when>
+        </c:choose>
     </div>
     <a href="/admin/" class="d-none d-inline-block btn btn-sm btn-primary shadow-sm">Wróć</a>
 </div>
