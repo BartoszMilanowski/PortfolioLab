@@ -24,8 +24,11 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception{
         http.authorizeRequests()
                 .antMatchers("/").permitAll()
+                .antMatchers("/login").permitAll()
+                .antMatchers("/zarejestruj-sie").permitAll()
+                .antMatchers("/przypomnij-haslo").permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/przekaz-dary").authenticated()
+                .antMatchers("/*").authenticated()
                 .and().exceptionHandling().accessDeniedPage("/403")
                 .and().formLogin().loginPage("/login")
                 .successHandler(loginSuccessHandler())

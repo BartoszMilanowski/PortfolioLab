@@ -1,4 +1,4 @@
-package pl.coderslab.charity.services;
+package pl.coderslab.charity.conf;
 
 import lombok.AllArgsConstructor;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -45,6 +45,24 @@ public class EmailSender {
             helper.setSubject("Rejestracja w 'Oddam w dobre ręce'");
             helper.setText("Cześć " + user.getName() + "\nWitamy w aplikacji 'Oddam w dobre ręce!" +
                     "\nTwój login: " + user.getEmail() +
+                    "\nDziękujemy, że jesteś z nami!");
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
+        javaMailSender.send(message);
+    }
+
+    public void passRemind(User user, String password){
+        MimeMessage message = javaMailSender.createMimeMessage();
+        try {
+            MimeMessageHelper helper = new MimeMessageHelper(message, true);
+            helper.setTo(user.getEmail());
+            helper.setFrom("info.egrades@gmail.com");
+            helper.setSubject("Zmiana hasła w 'Oddam w dobre ręce!");
+            helper.setText("Cześć " + user.getName() + "\nDostaliśmy prośbę o przypomnienie Twojego hasła" +
+                    "\nTwój login: " + user.getEmail() +
+                    "\nNowe hasło: " + password +
+                    "\nPamiętaj, żeby zmienić hasło przy pierwszym logowaniu!" +
                     "\nDziękujemy, że jesteś z nami!");
         } catch (MessagingException e) {
             throw new RuntimeException(e);
