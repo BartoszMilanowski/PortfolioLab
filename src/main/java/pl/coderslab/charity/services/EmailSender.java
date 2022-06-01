@@ -28,7 +28,7 @@ public class EmailSender {
             helper.setText("Cześć " + user.getName() + "\nZostałeś zarejestrowany jako administrator w witrynie " +
                     "'Oddam w dobre ręce'"
                     + "\nLogin: " + user.getEmail() + "\nHasło: " + password +
-                    "\nPamiętaj, aby zmienić hasło po pierwszym logowaniu!\nPozdrawiamy,\nZespół eGrades.");
+                    "\nPamiętaj, aby zmienić hasło po pierwszym logowaniu!\nPozdrawiamy.");
 
         } catch (MessagingException e){
             e.printStackTrace();
@@ -40,7 +40,7 @@ public class EmailSender {
         MimeMessage message = javaMailSender.createMimeMessage();
         try {
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
-            helper.setText(user.getEmail());
+            helper.setTo(user.getEmail());
             helper.setFrom("info.egrades@gmail.com");
             helper.setSubject("Rejestracja w 'Oddam w dobre ręce'");
             helper.setText("Cześć " + user.getName() + "\nWitamy w aplikacji 'Oddam w dobre ręce!" +
@@ -49,5 +49,6 @@ public class EmailSender {
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
+        javaMailSender.send(message);
     }
 }
