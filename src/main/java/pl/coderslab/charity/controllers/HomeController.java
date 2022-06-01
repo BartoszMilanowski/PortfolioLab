@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import pl.coderslab.charity.conf.EmailSender;
 import pl.coderslab.charity.entity.Institution;
 import pl.coderslab.charity.entity.Role;
 import pl.coderslab.charity.entity.User;
@@ -29,6 +30,7 @@ public class HomeController {
     private final RoleService roleService;
 
     private final EmailSender emailSender;
+
 
 
     @GetMapping("/")
@@ -70,6 +72,19 @@ public class HomeController {
         emailSender.newUser(user);
         userService.save(user);
 
+        return "redirect:/login";
+    }
+
+    @GetMapping("/zmien-haslo")
+    public String changePassForm(){
+        return "change-password";
+    }
+
+    @PostMapping("/zmien-haslo")
+    public String changePass(HttpServletRequest request){
+        User user = userService.findById(Long.parseLong(request.getParameter("userId")));
+        user.setPassword(passwordEncoder.encode(request.getParameter("password")));
+        userService.update(user);
         return "redirect:/login";
     }
 }

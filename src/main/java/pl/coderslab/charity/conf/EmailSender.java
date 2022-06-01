@@ -1,4 +1,4 @@
-package pl.coderslab.charity.services;
+package pl.coderslab.charity.conf;
 
 import lombok.AllArgsConstructor;
 import org.springframework.mail.javamail.JavaMailSender;

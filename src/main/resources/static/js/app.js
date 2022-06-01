@@ -375,7 +375,6 @@ document.addEventListener("DOMContentLoaded", function() {
     constructor(form) {
       form.addEventListener("submit", e => {
         e.preventDefault();
-
         if (this.checkFoundName() && this.checkFoundDesc()) {
           form.submit();
         }
@@ -404,5 +403,54 @@ document.addEventListener("DOMContentLoaded", function() {
   const foundationForm = document.querySelector("#fundForm")
   if (foundationForm != null){
     new AddFoundationForm(foundationForm);
+  }
+
+  class changePassForm{
+    constructor(form) {
+      form.addEventListener("submit", e => {
+        e.preventDefault();
+        if (this.password() && this.password2()){
+          form.submit();
+        }
+      })
+    }
+    password(){
+      const password = document.querySelector("#password");
+      const errors = [];
+      if (password.value.length < 8){
+        errors.push("Hasło powinno mieć conajmniej 8 znaków!");
+      }
+      if (!/\d/.test(password.value)){
+        errors.push("Hasło powinno zwierać przynajmniej jedną cyfrę!");
+      }
+      if (!/[a-z]/.test(password.value)){
+        errors.push("Hasło powinno zawierać przynajmniej jedną małą literę!");
+      }
+      if (!/[A-Z]/.test(password.value)){
+        errors.push("Hasło powinno zawierać przynajmniej jedna dużą literę!")
+      }
+      if (errors.length !== 0){
+        password.parentElement.querySelector("p").innerHTML =
+            errors.join("<br/>");
+        return false;
+      } else {
+        return true;
+      }
+    }
+    password2(){
+      const password2 = document.querySelector("#password2");
+      const password = document.querySelector("#password");
+      if (password2.value !== password.value){
+        password2.parentElement.querySelector("p").innerHTML = "Podane hasła nie są takie same!";
+        return false;
+      } else {
+        return true;
+      }
+    }
+  }
+
+  const changePass = document.querySelector("#changePassForm");
+  if (changePass != null){
+    new changePassForm(changePass);
   }
 });
