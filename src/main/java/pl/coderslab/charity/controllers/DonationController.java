@@ -13,7 +13,7 @@ import pl.coderslab.charity.services.CategoryService;
 import pl.coderslab.charity.services.DonationService;
 import pl.coderslab.charity.services.InstitutionService;
 
-import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -51,8 +51,10 @@ public class DonationController {
     }
 
     @PostMapping
-    public String donationForm(Donation donation, HttpServletRequest request){
+    public String donationForm(Donation donation){
 
+        donation.setRegistered(LocalDate.now());
+        donation.setStatus("nieodebrane");
         donationService.save(donation);
         return "redirect:/przekaz-dary/przeslano";
     }

@@ -38,10 +38,21 @@ public class Donation {
 
     private String zipCode;
 
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate pickUpDate;
 
     private LocalTime pickUpTime;
 
     private String pickUpComment;
+
+    private String status;
+
+    private LocalDate registered;
+
+    private LocalDate pickedUp;
+
+    @ManyToOne
+    @JoinColumn(name = "donator_id")
+    private User donator;
 }
