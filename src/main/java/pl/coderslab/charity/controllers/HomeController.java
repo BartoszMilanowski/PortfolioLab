@@ -13,6 +13,7 @@ import pl.coderslab.charity.entity.User;
 import pl.coderslab.charity.services.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -102,5 +103,19 @@ public class HomeController {
         emailSender.passRemind(user, password);
         userService.update(user);
         return "redirect:/login";
+    }
+
+    @GetMapping("/moje-konto")
+    public String myAccount(Model model, Principal principal){
+        User user = userService.findByEmail(principal.getName());
+        System.out.println(user.getName());
+        model.addAttribute("user", user);
+        return "my-account-edit";
+    }
+
+    @PostMapping("/moje-konto")
+    public String myAccountEdit(User user){
+        userService.update(user);
+        return "redirect:/moje-konto";
     }
 }

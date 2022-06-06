@@ -11,7 +11,7 @@
                 <sec:authorize access="hasRole('ROLE_ADMIN')">
                     <li><a href="/admin/" class="btn btn--small btn--without-border">Panel administratora</a></li>
                 </sec:authorize>
-                <li><a href="/zmien-haslo" class="btn btn--small btn--without-border">Zmień hasło</a></li>
+                <li><a href="/moje-konto" class="btn btn--small btn--without-border">Moje konto</a></li>
                 <li>
                     <form action="/logout" method="post">
                         <input type="submit" value="Wyloguj" class="btn btn--small btn--highlighted"/>
