@@ -46,7 +46,7 @@ public class Donation {
 
     private String pickUpComment;
 
-    private String status;
+    private boolean status;
 
     private LocalDate registered;
 
